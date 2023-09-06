@@ -1,0 +1,58 @@
+// components/CircleChart.js
+
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const todoProgressChart = ({ todo }) => {
+    const { todoName, todoDate, todoStatus, todoProgress, todoImage, id } = todo;
+    const radius = 30;
+    const circumference = 2 * Math.PI * radius;
+    const strokeDashoffset = circumference - (todoProgress / 100) * circumference;
+
+    let progress = todoProgress;
+
+    // Check if todoStatus is "Hold" and set progress to 0
+    if (todoStatus === "Hold") {
+        progress = 0;
+    }
+
+
+
+    return (
+        <div className="relative">
+            <svg width="80" height="80" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <circle
+                    className="text-gray-300"
+                    stroke="currentColor"
+                    strokeWidth="8"
+                    fill="transparent"
+                    r={radius}
+                    cx="60"
+                    cy="60"
+                />
+                <circle
+                    className={`${todoStatus === "Complete" && "text-green-600" || todoStatus === "Hold" && "text-black " || todoStatus === "Incomplete" && "text-red-500 " || todoStatus === "progress" && "text-yellow-600 "}`}
+                    stroke="currentColor"
+                    strokeWidth="6"
+                    fill="transparent"
+                    r={radius}
+                    cx="60"
+                    cy="60"
+                    style={{
+                        strokeDasharray: `${circumference} ${circumference}`,
+                        strokeDashoffset: strokeDashoffset,
+                    }}
+                />
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center text-[1rem] font-semibold  ">
+                {progress}%
+            </div>
+        </div>
+    );
+};
+
+todoProgressChart.propTypes = {
+    todoProgress: PropTypes.number.isRequired,
+};
+
+export default todoProgressChart;
