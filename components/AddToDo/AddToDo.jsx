@@ -80,14 +80,41 @@ const AddToDo = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { todoName, todoDate, todoStatus, todoProgress, todoImage } = formData;
+        let progress = todoProgress
         try {
             // Dispatch the addedTodo action to add the task
-            await dispatch(addedTodo(formData));
-            saveToLocalStorage("todoFormData", formData)
-            // Show a success toast when the form is submitted successfully
-            toast.success('Task added successfully', {
-                duration: 3000,
-            });
+            if (todoStatus === "Incomplete" && progress <= 30) {
+                // If todoStatus is "Incomplete" and progress is less than or equal to 30
+                await dispatch(addedTodo(formData));
+                toast.success('Task added successfully', {
+                    duration: 3000,
+                });
+            } else if (todoStatus === "progress" && progress == 50) {
+                // If todoStatus is "progress" and progress is 50
+                await dispatch(addedTodo(formData));
+                toast.success('Task added successfully', {
+                    duration: 3000,
+                });
+            } else if (todoStatus === "Complete" && progress > 80) {
+                // If todoStatus is "Complete" and progress is greater than 80
+                await dispatch(addedTodo(formData));
+                toast.success('Task added successfully', {
+                    duration: 3000,
+                });
+            } else if (todoStatus === "Hold" && progress) {
+                // If todoStatus is "Complete" and progress is greater than 80
+                await dispatch(addedTodo(formData));
+                toast.success('Task added successfully', {
+                    duration: 3000,
+                });
+            }
+            else {
+                // If none of the conditions match, show an error toast
+                toast.error('todoStatus and todoProgress should not match the specified criteria', {
+                    duration: 3000,
+                });
+            }
+
             // Reset the form fields if needed
             setFormData({
                 todoName: '',

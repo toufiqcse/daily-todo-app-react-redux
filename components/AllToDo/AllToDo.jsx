@@ -2,14 +2,10 @@ import Image from "next/image"
 import Progress from "../ProgressBar/Progress"
 import { FaCross, FaEdit, } from "react-icons/fa"
 import { AiFillDelete } from "react-icons/ai"
-import assigneesImage from "@/content/images/user_1.jpg"
 import Link from "next/link"
-import EditTask from "../EditTask/EditTask"
-import { deleteTodo, setSelectedTodo } from "@/redux/todos/actionsCreator"
+import { deleteTodo, } from "@/redux/todos/actionsCreator"
 import { useDispatch, useSelector } from "react-redux"
-
 import { toast } from "react-hot-toast"
-import LoadingSkeleton from "../Loadingskeltion/LoadingSkeletion"
 import ToBase64 from "../ToBase64"
 import Shimmer from "../Shimmer"
 
@@ -27,6 +23,10 @@ const AllToDo = ({ todo }) => {
             dispatch(deleteTodo(id))
         }
     }
+
+
+
+
 
 
     return (
@@ -87,6 +87,7 @@ const AllToDo = ({ todo }) => {
                 </td>
 
             </tr>
+
 
         </>
 
