@@ -10,5 +10,6 @@ export const initialStateTodo = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV4ahJC5bjrrz2vZ6CEJVwgZo-SzLL6V5saEkhNWj5LA&s",
     todoProgress: "99",
     selectedTodo: null,
+    completed: true,
   },
 ];

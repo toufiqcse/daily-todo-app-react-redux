@@ -21,6 +21,7 @@ const AllToDo = ({ todo }) => {
         }
         else {
             dispatch(deleteTodo(id))
+            toast.success("Task Successfully Deleted")
         }
     }
 

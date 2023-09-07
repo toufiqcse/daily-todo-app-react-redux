@@ -8,16 +8,45 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import AllToDo from '@/components/AllToDo/AllToDo';
 
+const getCurrentDateWithMonthName = () => {
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const month = months[currentDate.getMonth()];
+    const year = currentDate.getFullYear();
+
+    return `${day} ${month}, ${year}`;
+};
+
 const TodoTable = () => {
 
     const todos = useSelector((state) => state.todos)
-    const todoProgress1 = 38; // Example progress value for Todo 1
-    const todoProgress2 = 75; // Example progress value for Todo 2
+    const filters = useSelector((state) => state.filters);
+    const { status, date } = filters;
+
+    const filterByStatus = (todo) => {
+        switch (status) {
+            case "Complete":
+                return todo.todoStatus === "Complete"
+            case "Incomplete":
+                return todo.todoStatus === "Incomplete"
+            case "progress":
+                return todo.todoStatus === "progress";
+
+            default:
+                return true
+        }
+    }
+
+
+
 
 
     return (
-
-
         <div className="max-w-7xl m-auto py-4">
             {/* <div className='bg-slate-700 py-2 text-center border-b-2 border-gray-200 text-xl text-white'>Today Todo</div> */}
             <table className="w-full  rounded-md overflow-hidden mb-4">
@@ -39,9 +68,13 @@ const TodoTable = () => {
                 </button> */}
                 <tbody className=''>
                     {
-                        todos.map((todo, i) => (
-                            <AllToDo key={i} todo={todo} />
-                        ))
+
+                        todos
+                            .filter(filterByStatus)
+
+                            .map((todo, i) => (
+                                <AllToDo key={i} todo={todo} />
+                            ))
                     }
                 </tbody>
                 {/* Prev. Week todoss */}

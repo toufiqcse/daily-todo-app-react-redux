@@ -1,6 +1,7 @@
-import { statusChanged } from "@/redux/filter/actionCreator";
+import { dateChanged, statusChanged } from "@/redux/filter/actionCreator";
 import { useDispatch, useSelector } from "react-redux"
 import Filter from "./Filter";
+import { getCurrentDateWithMonthName } from "../AddToDo/AddToDo";
 
 const FilterFooter = ({ }) => {
     const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const FilterFooter = ({ }) => {
         dispatch(statusChanged(selectedStatus));
     };
 
+
     return (
 
         <>
@@ -48,16 +50,8 @@ const FilterFooter = ({ }) => {
                 <div className="flex justify-between items-center px-4 py-4 ">
                     <div>
                         <ul className="flex items-center justify-between">
-                            <p>{handleTaskStatus(remainingTask)} </p>
-                            <li className="mr-4">|</li>
+                            <li>{handleTaskStatus(remainingTask)} </li>
 
-                            <li className="cursor-pointer mr-4 font-semibold">Today</li>
-                            <li className="mr-4">|</li>
-
-                            <li className="cursor-pointer mr-4">Yesterday</li>
-                            <li className="mr-4">|</li>
-
-                            <li className="cursor-pointer mr-4">Prev. Week</li>
                         </ul>
                     </div>
                     <div>
@@ -79,13 +73,6 @@ const FilterFooter = ({ }) => {
                     </div>
                 </div>
             </section>
-
-            <div className="">
-                <p>Todo Task</p>
-                {filteredTodos().map(todo => (
-                    <li key={todo.id}>{todo.todoName}</li>
-                ))}
-            </div>
         </>
     )
 }

@@ -1,4 +1,4 @@
-import { STATUSCHANGED } from "./actionTypes";
+import { DATEFILTER, STATUSCHANGED } from "./actionTypes";
 
 export const statusChanged = (status) => {
   return {

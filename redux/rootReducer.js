@@ -1,6 +1,7 @@
+import filterReducer from "./filter/reducer";
+import todoReducer from "./todos/todoReducer";
+
 const { combineReducers } = require("redux");
-const { default: todoReducer } = require("./todos/todoReducer");
-const { default: filterReducer } = require("./filter/reducer");
 
 const rootReducer = combineReducers({
   todos: todoReducer,

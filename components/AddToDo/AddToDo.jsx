@@ -5,7 +5,7 @@ import { addedTodo } from '@/redux/todos/actionsCreator';
 import toast, { Toaster } from 'react-hot-toast';
 import { loadFromLocalStorage, saveToLocalStorage } from '@/util/utillity';
 
-const getCurrentDateWithMonthName = () => {
+export const getCurrentDateWithMonthName = () => {
     const months = [
         'January', 'February', 'March', 'April', 'May', 'June',
         'July', 'August', 'September', 'October', 'November', 'December'
@@ -107,14 +107,14 @@ const AddToDo = () => {
                 toast.success('Task added successfully', {
                     duration: 3000,
                 });
+
             }
             else {
                 // If none of the conditions match, show an error toast
-                toast.error('todoStatus and todoProgress should not match the specified criteria', {
+                toast.error(' Complete greater than 80, Incomplete equal and less than 30, progress is equal 50', {
                     duration: 3000,
                 });
             }
-
             // Reset the form fields if needed
             setFormData({
                 todoName: '',
@@ -123,6 +123,8 @@ const AddToDo = () => {
                 todoProgress: '',
                 todoImage: null,
             });
+
+
         } catch (error) {
             // Handle any errors here, e.g., show an error toast
             toast.error('Error adding task. Please try again later.');
@@ -157,9 +159,9 @@ const AddToDo = () => {
                     <input
 
                         className="w-full py-2 px-4 border-2 outline-none border-purple-700 rounded-md mt-2 text-[1rem]"
-                        type="text"
+                        type="date"
                         name="todoDate"
-                        value={getCurrentDateWithMonthName()}
+                        value={formData.todoDate}
                         onChange={handleInputChange}
                         required
                     />
@@ -182,7 +184,7 @@ const AddToDo = () => {
                 </div>
                 {/* progress */}
                 <div className="mt-4 mb-4">
-                    <span className="mr-4 font-semibold">Progress % :</span>
+                    <span className="mr-4 font-semibold">Progress % : <span className='hidden text-[13px] text-red-500'>Complete greater than 80, Incomplete equal and less than 30, progress is equal 50</span></span>
                     <input
                         className="w-full py-2 px-4 border-2 outline-none border-purple-200 focus:border-purple-700 rounded-md mt-2 text-[1rem]"
                         type="number"
